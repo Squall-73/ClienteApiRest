@@ -43,4 +43,10 @@ public class clientController {
 		return new ResponseEntity<>(this.clientService.getAge(id), HttpStatus.OK);
 	}
 
+	@DeleteMapping(path="/delete/{id}")
+	public ResponseEntity<String> deleteById(@PathVariable Long id) throws Exception{
+		clientService.deleteClient(id);
+		return 	ResponseEntity.ok("Cliente " + id + " eliminado correctamente.");
+
+	}
 }

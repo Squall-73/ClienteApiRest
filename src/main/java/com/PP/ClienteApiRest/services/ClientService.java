@@ -28,14 +28,14 @@ public class ClientService {
 
 		log.info("Id Ingresado: " + id);
 		if(id<=0){
-			throw new IdNotValidException("el id ingresado no es válido");
+			throw new IdNotValidException("el id ingresado no es válido.");
 		}
 
 		Optional<ClientModel> clientOp = this.clientRepository.findById(id);
 
 		if(clientOp.isEmpty()){
 			log.info("El cliente que intenta modificar no se encuentra en la base de datos: " + newClient);
-			throw new ClientNotFoundException("El cliente que intenta modificar no se encuentra en la base de datos");
+			throw new ClientNotFoundException("El cliente que intenta modificar no se encuentra en la base de datos.");
 		}else{
 			log.info("Cliente encontrado");
 			ClientModel clientBd = clientOp.get();
@@ -53,14 +53,14 @@ public class ClientService {
 
 		log.info("Id Ingresado: " + id);
 		if(id<=0){
-			throw new IdNotValidException("el id ingresado no es válido");
+			throw new IdNotValidException("el id ingresado no es válido.");
 		}
 
 		Optional<ClientModel> clientOp = this.clientRepository.findById(id);
 
 		if(clientOp.isEmpty()){
 			log.info("El cliente buscado no se encuentra en la base de datos:" + id);
-			throw new ClientNotFoundException("El cliente solicitado no existe");
+			throw new ClientNotFoundException("El cliente solicitado no existe.");
 		}else{
 
 			return clientOp.get();
@@ -70,6 +70,24 @@ public class ClientService {
 
 	public List<ClientModel> findAll(){
 		return this.clientRepository.findAll();
+	}
+
+	public void deleteClient(long id) throws Exception{
+
+		log.info("Id Ingresado: " + id);
+		if(id<=0){
+			throw new IdNotValidException("el id ingresado no es válido.");
+		}
+
+		Optional<ClientModel> clientOp = this.clientRepository.findById(id);
+
+		if(clientOp.isEmpty()){
+			log.info("El cliente buscado no se encuentra en la base de datos:" + id);
+			throw new ClientNotFoundException("El cliente solicitado no existe.");
+		}else{
+			log.info("El Id Ingresado: " + id + " ha sido eliminado.");
+			clientRepository.delete(clientOp.get());
+		}
 	}
 
 	public LinkedHashMap<String,String> getAge(long id) throws Exception{
